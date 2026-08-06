@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>四渡赤水｜交互战役地图</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="history.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand"><span class="seal">渡</span><div><p>长征 · 1935</p><h1>四渡赤水</h1></div></div>
+      <p class="subtitle">在方寸之间，看一场跳出包围圈的运动战</p>
+      <button class="icon-btn" id="aboutBtn" aria-label="说明">史料说明</button>
+    </header>
+
+    <section class="workspace">
+      <aside class="story-panel">
+        <div class="eyebrow">战局推演 / 01—03月</div>
+        <h2 id="stageTitle">总览：在折返中寻找主动</h2>
+        <p class="date" id="stageDate">1935年1月19日 — 3月22日</p>
+        <p class="story" id="stageStory">遵义会议后，中央红军在川黔滇边反复机动。四次横渡赤水河，调动、迷惑并摆脱围堵，最终跳出重围。</p>
+        <blockquote id="stageQuote">“打得赢就打，打不赢就走。”</blockquote>
+        <div class="stats">
+          <div><strong id="statDays">63</strong><span>天机动作战</span></div>
+          <div><strong id="statCross">4</strong><span>次横渡赤水</span></div>
+          <div><strong id="statMove">∞</strong><span>机动创造战机</span></div>
+        </div>
+        <div class="insight">
+          <span>本阶段看点</span>
+          <p id="stageInsight">路线看似反复，实则始终围绕敌军部署的空隙改变方向。</p>
+        </div>
+      </aside>
+
+      <section class="map-shell" aria-label="四渡赤水交互地图">
+        <svg id="map" viewBox="0 0 1000 690" role="img" aria-label="川黔滇边四渡赤水示意地图">
+          <defs>
+            <filter id="shadow"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-opacity=".3"/></filter>
+            <filter id="glow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <pattern id="paper" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M0 12Q15 5 30 12T60 12M-12 38Q4 29 20 38T52 38" fill="none" stroke="#d8caa8" stroke-width=".7" opacity=".25"/></pattern>
+            <marker id="enemyArrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9Z" fill="#8e2e28"/></marker>
+          </defs>
+          <rect width="1000" height="690" fill="#d9cfb3"/><rect width="1000" height="690" fill="url(#paper)"/>
+          <g id="viewport">
+            <g class="terrain" aria-hidden="true"></g>
+            <path id="river" class="river" d="M350 5 C322 70 373 112 343 168 C315 216 352 251 329 297 C305 345 345 389 321 438 C298 486 324 529 293 580 C272 616 286 657 263 705"/>
+            <text class="river-label" x="298" y="355" transform="rotate(-84 298 355)">赤 水 河</text>
+            <path class="river tributary" d="M330 297 C420 285 485 305 559 271 C623 243 683 246 748 272"/>
+            <text class="river-label small" x="485" y="289">乌 江</text>
+            <path class="boundary" d="M45 98 Q180 44 309 89T593 78T930 106M78 560Q230 516 368 556T645 548T949 526"/>
+            <g class="province-labels"><text x="160" y="115">四 川</text><text x="590" y="370">贵 州</text><text x="115" y="610">云 南</text></g>
+            <g id="enemyLayer"></g>
+            <g id="routeLayer"></g>
+            <g id="placeLayer"></g>
+            <g id="crossingLayer"></g>
+            <g id="cursorLayer"></g>
+          </g>
+        </svg>
+        <div class="map-tools">
+          <button data-zoom="in" title="放大">＋</button><button data-zoom="out" title="缩小">－</button><button data-zoom="reset" title="复位">⌂</button>
+        </div>
+        <div class="north"><b>北</b><span>◆</span></div>
+        <div class="legend">
+          <span><i class="red-line"></i>红军路线</span><span><i class="river-line"></i>赤水河</span><span><i class="enemy-line"></i>围堵方向</span><span><i class="cross-dot"></i>渡河点</span>
+        </div>
+        <div class="map-note">示意模型 · 非严谨史实坐标</div>
+      </section>
+    </section>
+
+    <section class="control-deck">
+      <div class="playback">
+        <button id="playBtn" class="play-btn" aria-label="播放">▶</button>
+        <div><strong id="playLabel">播放全程</strong><span id="playHint">点击开始路线推演</span></div>
+      </div>
+      <div class="timeline" id="timeline"></div>
+      <div class="toggles">
+        <label><input type="checkbox" id="enemyToggle" checked><span></span>围堵</label>
+        <label><input type="checkbox" id="placeToggle" checked><span></span>地名</label>
+        <button id="speedBtn">1×</button>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="aboutDialog">
+    <button class="dialog-close" aria-label="关闭">×</button>
+    <span class="eyebrow">历史背景与经过</span>
+    <h2>四渡赤水战役</h2>
+    <p>1935年1月遵义会议后，中央红军原拟由川黔边北渡长江，与红四方面军会合。国民党军以优势兵力从多方向围堵，红军遂在川、黔、滇交界地区实行高度机动的运动战。</p>
+    <ol class="history-list">
+      <li><b>一渡赤水｜1月29日</b><span>土城战斗受挫后，中央红军由土城、元厚一带西渡赤水河，进入川南，继而向扎西地区集结整编。</span></li>
+      <li><b>二渡赤水｜2月18日至21日</b><span>乘黔北兵力空虚，红军从太平渡、二郎滩等处东渡，回师黔北；随后攻克娄山关、再占遵义，取得长征以来一次重大胜利。</span></li>
+      <li><b>三渡赤水｜3月16日至17日</b><span>鲁班场战斗后，红军从茅台及附近地区西渡，再入川南，造成将要北渡长江的态势，吸引国民党军向西集中。</span></li>
+      <li><b>四渡赤水｜3月21日至22日</b><span>红军主力突然折向东北，经二郎滩、九溪口、太平渡东渡赤水，继而南渡乌江、佯攻贵阳，并向云南机动。</span></li>
+    </ol>
+    <h3>历史意义</h3>
+    <p>四渡赤水不是预先写定的固定路线，而是依据不断变化的敌情灵活决策。中央红军通过迂回、折返、佯动和突然转向，调动国民党军并穿过其部署空隙，摆脱被动局面，为随后威逼贵阳、进军云南和巧渡金沙江创造了条件。</p>
+    <p class="source-note"><b>资料口径：</b>日期与主要渡口参考中央党史和军史公开资料。地图为理解战役空间关系而作的概化示意，行政边界、路线和点位不具备测绘精度。</p>
+    <p class="keys"><kbd>空格</kbd> 播放/暂停　<kbd>←</kbd><kbd>→</kbd> 切换阶段　滚轮缩放、拖拽地图</p>
+  </dialog>
+  <script src="app.js"></script>
+</body>
+</html>
