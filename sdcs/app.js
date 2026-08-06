@@ -1,42 +1,36 @@
 const NS='http://www.w3.org/2000/svg';
 const stages=[
- {name:'总览',date:'1935年1月19日 — 3月22日',title:'总览：在折返中寻找主动',story:'遵义会议后，中央红军在川黔滇边反复机动。四次横渡赤水河，调动、迷惑并摆脱围堵，最终跳出重围。',quote:'“打得赢就打，打不赢就走。”',insight:'路线看似反复，实则始终围绕敌军部署的空隙改变方向。',days:'63',cross:'4',move:'∞',range:[0,23]},
- {name:'一渡',date:'1935年1月29日',title:'一渡赤水：避实击虚，向川南转进',story:'土城战斗后，红军从猿猴场（今元厚）等渡口西渡赤水，进入川南。主动转向，使紧逼的川军失去预定决战目标。',quote:'先跳出压迫最紧的战场。',insight:'不是执着于一城一地，而是保存力量、寻找新的机动空间。',days:'11',cross:'1',move:'西',range:[0,6]},
- {name:'二渡',date:'1935年2月18日—21日',title:'二渡赤水：回师黔北，重占遵义',story:'敌军被吸引向川滇边后，红军突然东渡赤水，杀回黔北，取得娄山关、遵义战斗的胜利。',quote:'出其不意，攻其不备。',insight:'利用敌军调动形成的空隙突然折返，将战略机动转化为战场主动。',days:'4',cross:'2',move:'东',range:[6,13]},
- {name:'三渡',date:'1935年3月16日',title:'三渡赤水：再向西去，佯动调敌',story:'红军由茅台附近西渡赤水，摆出再次北渡长江的姿态，诱使敌军主力向西追堵。',quote:'以行动制造判断，以判断牵动部署。',insight:'这次西渡更像一记“虚招”，重点在于调动对手而非占领地域。',days:'1',cross:'3',move:'西',range:[13,18]},
- {name:'四渡',date:'1935年3月21日—22日',title:'四渡赤水：折返东岸，跳出合围',story:'红军从二郎滩、太平渡一带再次东渡，随后南渡乌江、佯攻贵阳，最终向云南方向机动。',quote:'当对手追向西面，真正的方向已在东面。',insight:'快速回穿敌军部署间隙，以连续转向彻底夺回战略主动。',days:'2',cross:'4',move:'东',range:[18,23]}
+ {short:'认识故事',badge:'先认识一下',date:'1935年1月—3月',emoji:'⭐',title:'为什么要四次过河？',story:'前面有拦路的军队，后面有追赶的军队。红军没有硬碰硬，而是一边走、一边观察，哪里有空隙就往哪里走。',lesson:'像走迷宫一样，遇到死路就换方向。灵活思考，也是一种勇敢！',word:'灵活',explain:'根据情况及时改变办法。',button:'开始第一渡',progress:0},
+ {short:'第一渡',badge:'第一关 · 向西走',date:'1月29日',emoji:'⛰️',title:'先离开危险的地方',story:'土城战斗后，红军发现继续打下去不合适，于是从土城、元厚一带渡过赤水河，向西进入川南。',lesson:'暂时离开，不是害怕，而是为了保护大家，寻找更合适的机会。',word:'转移',explain:'从一个地方有计划地走到另一个地方。',button:'看看第二渡',progress:.25},
+ {short:'第二渡',badge:'第二关 · 向东回',date:'2月18日—21日',emoji:'↩️',title:'突然回头，出其不意',story:'追赶的军队被引到了西边。红军马上改变方向，从太平渡、二郎滩一带向东过河，回到黔北，还打了娄山关和遵义战斗。',lesson:'别人以为你会往前时，换一个方向，就可能找到新的出口。',word:'出其不意',explain:'做出别人没有想到的行动。',button:'看看第三渡',progress:.5},
+ {short:'第三渡',badge:'第三关 · 再向西',date:'3月16日—17日',emoji:'🎭',title:'做一个巧妙的“假动作”',story:'红军从茅台附近再次向西过河，让追赶的军队以为红军还要继续向西、向北走，于是也跟着移动。',lesson:'这次过河像球场上的“假动作”，目的是让对方判断错方向。',word:'调动',explain:'用行动让对方跟着改变位置。',button:'看看第四渡',progress:.75},
+ {short:'第四渡',badge:'第四关 · 向东突围',date:'3月21日—22日',emoji:'🌈',title:'抓住空隙，走出包围',story:'当追赶的军队集中到西边时，红军迅速从二郎滩、太平渡一带向东过河，接着南渡乌江，终于争取到了主动。',lesson:'认真观察、快速决定、一起行动，困难的迷宫也能找到出口。',word:'主动',explain:'自己抓住机会，决定下一步怎么做。',button:'完成啦，去答题',progress:1}
 ];
-const route=[[645,205],[570,220],[490,238],[405,255],[350,270],[300,286],[247,300],[285,332],[335,352],[405,370],[485,390],[558,405],[615,430],[540,455],[462,468],[380,454],[330,435],[280,420],[315,462],[365,500],[430,522],[520,540],[610,565],[690,590]];
-const places=[['遵义',650,205,'capital'],['土城',355,268,''],['元厚',300,300,''],['扎西',210,330,''],['娄山关',640,145,''],['茅台',330,435,''],['太平渡',315,462,''],['二郎滩',350,493,''],['贵阳',760,430,'capital'],['昆明',230,625,'capital']];
-const crosses=[{i:5,label:'一渡',stage:1},{i:9,label:'二渡',stage:2},{i:16,label:'三渡',stage:3},{i:19,label:'四渡',stage:4}];
-const enemies=[['川军','M150 90 Q260 120 360 205'],['中央军','M900 170 Q790 210 685 250'],['黔军','M860 490 Q760 455 665 420'],['滇军','M120 650 Q205 575 270 520']];
-const $=s=>document.querySelector(s), svg=(tag,a={})=>{const e=document.createElementNS(NS,tag);Object.entries(a).forEach(([k,v])=>e.setAttribute(k,v));return e};
-const routeLayer=$('#routeLayer'), placeLayer=$('#placeLayer'), crossingLayer=$('#crossingLayer'), enemyLayer=$('#enemyLayer'), cursorLayer=$('#cursorLayer');
-function linePath(points){return points.map((p,i)=>(i?'L':'M')+p.join(' ')).join(' ')}
-function buildTerrain(){const g=$('.terrain');for(let y=55;y<680;y+=68){const p=svg('path',{d:`M20 ${y} Q110 ${y-35} 200 ${y} T380 ${y} T560 ${y} T740 ${y} T960 ${y}`});g.append(p)}}
+const route=[[525,120],[470,145],[395,160],[315,170],[267,195],[220,220],[185,250],[230,270],[285,285],[365,270],[440,250],[495,230],[445,290],[365,315],[290,306],[258,330],[215,355],[260,382],[325,400],[405,420],[505,405],[595,380]];
+const crossings=[{i:5,n:1,label:'一渡'},{i:10,n:2,label:'二渡'},{i:15,n:3,label:'三渡'},{i:18,n:4,label:'四渡'}];
+const places=[['遵义',535,112],['土城',302,170],['元厚',220,220],['茅台',258,330],['太平渡',325,400],['贵阳',620,340]];
+const $=s=>document.querySelector(s);
+const makeSvg=(tag,attrs={})=>{const el=document.createElementNS(NS,tag);Object.entries(attrs).forEach(([k,v])=>el.setAttribute(k,v));return el};
+const linePath=pts=>pts.map((p,i)=>(i?'L':'M')+p.join(' ')).join(' ');
 function buildMap(){
- buildTerrain();
- enemies.forEach(([label,d],i)=>{const p=svg('path',{d,class:'enemy-path'});p.style.animationDelay=`-${i*.3}s`;enemyLayer.append(p);const m=d.match(/(\d+) (\d+)$/);const t=svg('text',{x:+m[1]+8,y:+m[2]-8,class:'enemy-label'});t.textContent=label;enemyLayer.append(t)});
- const future=svg('path',{d:linePath(route),class:'route future'});routeLayer.append(future);
- const base=svg('path',{d:linePath(route),class:'route-base'}),path=svg('path',{d:linePath(route),class:'route'});routeLayer.append(base,path);window.routePath=path;
- places.forEach(([n,x,y,c])=>{const g=svg('g',{class:`place ${c}`});g.append(svg('circle',{cx:x,cy:y,r:c?6:4}));const t=svg('text',{x:x+9,y:y-8});t.textContent=n;g.append(t);placeLayer.append(g)});
- crosses.forEach(c=>{const [x,y]=route[c.i],g=svg('g',{class:'crossing','data-stage':c.stage,transform:`translate(${x} ${y})`});g.append(svg('circle',{class:'pulse',r:9}),svg('circle',{class:'core',r:7}));const t=svg('text',{x:12,y:-12});t.textContent=c.label;g.append(t);g.addEventListener('click',()=>selectStage(c.stage,true));crossingLayer.append(g)});
- const g=svg('g',{id:'cursor',transform:`translate(${route[0]})`});g.append(svg('circle',{class:'cursor-ring',r:10}),svg('path',{class:'cursor-star',d:'M0-7 2-2 7 0 2 2 0 7-2 2-7 0-2-2Z'}));cursorLayer.append(g);
- requestAnimationFrame(()=>{pathLength=path.getTotalLength();path.style.strokeDasharray=pathLength;path.style.strokeDashoffset=0});
+ const hills=$('.hills');
+ [[60,135],[430,80],[555,255],[80,340],[455,435]].forEach(([x,y],i)=>{const g=makeSvg('g',{transform:`translate(${x} ${y})`,class:'hill'});g.append(makeSvg('path',{d:'M0 40 Q28 -5 58 40 Q85 5 116 40Z'}));const t=makeSvg('text',{x:55,y:56});t.textContent=['大山','山路','贵州','云南','乌江'][i];g.append(t);hills.append(g)});
+ const base=makeSvg('path',{d:linePath(route),class:'route-base'}),path=makeSvg('path',{d:linePath(route),class:'route-path','marker-end':'url(#arrow)'});$('#routeLayer').append(base,path);window.routePath=path;
+ places.forEach(([name,x,y])=>{const g=makeSvg('g',{class:'place'});g.append(makeSvg('circle',{cx:x,cy:y,r:5}));const t=makeSvg('text',{x:x+10,y:y-8});t.textContent=name;g.append(t);$('#placeLayer').append(g)});
+ crossings.forEach(({i,n,label})=>{const [x,y]=route[i],g=makeSvg('g',{class:'crossing','data-stage':n,transform:`translate(${x} ${y})`,role:'button',tabindex:'0','aria-label':label});g.innerHTML=`<circle class="cross-halo" r="22"/><circle class="cross-dot" r="16"/><text class="cross-number" text-anchor="middle" y="6">${n}</text><text class="cross-label" x="24" y="5">${label}</text>`;g.addEventListener('click',()=>selectStage(n));g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selectStage(n)}});$('#crossLayer').append(g)});
+ const star=makeSvg('g',{id:'mapStar',transform:`translate(${route[0]})`});star.innerHTML='<circle r="17"/><text text-anchor="middle" y="7">★</text>';$('#starLayer').append(star);
+ requestAnimationFrame(()=>{window.pathLength=path.getTotalLength();selectStage(0,false)});
 }
-let current=0,playing=false,progress=1,pathLength=1,raf,last,speed=1,view={x:0,y:0,w:1000,h:690};
-function buildTimeline(){stages.forEach((s,i)=>{const b=document.createElement('button');b.className='stage-btn'+(i===0?' active':'');b.textContent=s.name;b.onclick=()=>selectStage(i,true);$('#timeline').append(b)})}
-function selectStage(i,play=false){current=i;const s=stages[i];['Title','Date','Story','Quote','Insight'].forEach(k=>$('#stage'+k).textContent=s[k.toLowerCase()]);$('#statDays').textContent=s.days;$('#statCross').textContent=s.cross;$('#statMove').textContent=s.move;document.querySelectorAll('.stage-btn').forEach((b,j)=>b.className='stage-btn'+(j===i?' active':j<i?' done':''));document.querySelectorAll('.crossing').forEach(g=>g.classList.toggle('active',+g.dataset.stage===i));progress=i===0?1:0;drawProgress();playing=false;updatePlay();if(play)startPlayback()}
-function drawProgress(){const stage=stages[current],start=stage.range[0]/(route.length-1),end=stage.range[1]/(route.length-1),p=current===0?progress:start+(end-start)*progress;window.routePath.style.strokeDashoffset=pathLength*(1-p);const pt=window.routePath.getPointAtLength(pathLength*p);$('#cursor').setAttribute('transform',`translate(${pt.x} ${pt.y})`)}
-function startPlayback(){if(progress>=.999)progress=0;playing=true;last=performance.now();updatePlay();raf=requestAnimationFrame(tick)}
-function tick(t){if(!playing)return;const dt=Math.min(50,t-last);last=t;progress+=dt*.000075*speed;if(progress>=1){progress=1;playing=false}drawProgress();updatePlay();if(playing)raf=requestAnimationFrame(tick)}
-function updatePlay(){$('#playBtn').textContent=playing?'Ⅱ':'▶';$('#playLabel').textContent=playing?'推演进行中':progress>=1?'重新播放':'继续播放';$('#playHint').textContent=stages[current].title}
-$('#playBtn').onclick=()=>{if(playing){playing=false;cancelAnimationFrame(raf);updatePlay()}else startPlayback()};
-$('#enemyToggle').onchange=e=>enemyLayer.style.display=e.target.checked?'':'none';$('#placeToggle').onchange=e=>placeLayer.style.display=e.target.checked?'':'none';
-$('#speedBtn').onclick=e=>{speed=speed===1?1.5:speed===1.5?2:1;e.target.textContent=speed+'×'};
-function setView(){ $('#map').setAttribute('viewBox',`${view.x} ${view.y} ${view.w} ${view.h}`)}
-document.querySelectorAll('[data-zoom]').forEach(b=>b.onclick=()=>{const z=b.dataset.zoom;if(z==='reset')view={x:0,y:0,w:1000,h:690};else{const f=z==='in'?.82:1.22,cx=view.x+view.w/2,cy=view.y+view.h/2;view.w=Math.max(360,Math.min(1300,view.w*f));view.h=view.w*.69;view.x=cx-view.w/2;view.y=cy-view.h/2}setView()});
-const map=$('#map');map.addEventListener('wheel',e=>{e.preventDefault();document.querySelector(`[data-zoom="${e.deltaY<0?'in':'out'}"]`).click()},{passive:false});let drag=null;map.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY,vx:view.x,vy:view.y};map.setPointerCapture(e.pointerId)});map.addEventListener('pointermove',e=>{if(!drag)return;view.x=drag.vx-(e.clientX-drag.x)*view.w/map.clientWidth;view.y=drag.vy-(e.clientY-drag.y)*view.h/map.clientHeight;setView()});map.addEventListener('pointerup',()=>drag=null);
-const dlg=$('#aboutDialog');$('#aboutBtn').onclick=()=>dlg.showModal();$('.dialog-close').onclick=()=>dlg.close();dlg.onclick=e=>{if(e.target===dlg)dlg.close()};
-addEventListener('keydown',e=>{if(e.code==='Space'){e.preventDefault();$('#playBtn').click()}if(e.key==='ArrowRight')selectStage(Math.min(4,current+1));if(e.key==='ArrowLeft')selectStage(Math.max(0,current-1))});
-buildMap();buildTimeline();selectStage(0);
+function buildNav(){stages.forEach((s,i)=>{const b=document.createElement('button');b.type='button';b.innerHTML=`<span>${i===0?'★':i}</span><b>${s.short}</b>`;b.addEventListener('click',()=>selectStage(i));$('#chapterNav').append(b)})}
+function selectStage(index,scroll=true){
+ const s=stages[index];window.currentStage=index;
+ $('#stageBadge').textContent=s.badge;$('#stageDate').textContent=s.date;$('#stageEmoji').textContent=s.emoji;$('#stageTitle').textContent=s.title;$('#stageStory').textContent=s.story;$('#stageLesson').textContent=s.lesson;$('#stageWord').textContent=s.word;$('#stageWordExplain').textContent=s.explain;$('#nextBtn').innerHTML=`${s.button} <span>→</span>`;
+ document.querySelectorAll('#chapterNav button').forEach((b,i)=>{b.classList.toggle('active',i===index);b.classList.toggle('done',i<index)});document.querySelectorAll('.crossing').forEach(g=>g.classList.toggle('active',Number(g.dataset.stage)===index));
+ if(window.pathLength){const shown=window.pathLength*s.progress;window.routePath.style.strokeDasharray=window.pathLength;window.routePath.style.strokeDashoffset=window.pathLength-shown;const pt=window.routePath.getPointAtLength(shown);$('#mapStar').setAttribute('transform',`translate(${pt.x} ${pt.y})`)}
+ if(scroll&&matchMedia('(max-width: 800px)').matches)$('.story-card').scrollIntoView({behavior:'smooth',block:'start'});
+}
+$('#nextBtn').addEventListener('click',()=>{if(window.currentStage<4)selectStage(window.currentStage+1);else $('#quiz').scrollIntoView({behavior:'smooth'})});
+$('#startBtn').addEventListener('click',()=>$('#storyZone').scrollIntoView({behavior:'smooth'}));
+document.querySelectorAll('.answers button').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.answers button').forEach(b=>b.classList.remove('right','wrong'));const right=btn.dataset.correct==='true';btn.classList.add(right?'right':'wrong');$('#quizResult').textContent=right?'🎉 答对啦！会观察、会思考、会改变办法，就是四渡赤水故事里的智慧。':'再想一想：遇到变化时，是不是应该先观察，再想新办法呢？'}));
+const dialog=$('#aboutDialog');$('#aboutBtn').addEventListener('click',()=>dialog.showModal());$('.dialog-close').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});$('#backTop').addEventListener('click',()=>scrollTo({top:0,behavior:'smooth'}));
+buildNav();buildMap();
