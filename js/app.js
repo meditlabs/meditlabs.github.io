@@ -95,13 +95,15 @@
     container.appendChild(renderer.domElement);
 
     var particleImage = new Image();
+    particleImage.onload = function () {
+      createParticles(new THREE.ParticleBasicMaterial({ map: new THREE.Texture(particleImage) }));
+      render();
+    };
     particleImage.src = "images/funny.png";
-    createParticles(new THREE.ParticleBasicMaterial({ map: new THREE.Texture(particleImage) }));
 
     window.addEventListener("resize", resize);
     container.addEventListener("touchstart", onTouchStart, { passive: true });
     container.addEventListener("touchend", onTouchEnd, { passive: true });
-    render();
   }
 
   window.addEventListener("DOMContentLoaded", init);
