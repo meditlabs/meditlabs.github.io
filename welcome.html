@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>欢迎访问</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      color: #fff;
+      font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+      background-color: #172033;
+      background-position: center;
+      background-size: cover;
+    }
+
+    body::before {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      content: "";
+      background:
+        radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.18) 70%),
+        linear-gradient(135deg, rgba(10, 20, 40, 0.28), rgba(0, 0, 0, 0.48));
+    }
+
+    h1 {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      padding: 0 1rem;
+      font-size: clamp(2.5rem, 9vw, 7rem);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-align: center;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.65);
+      animation: appear 1s ease-out both;
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>欢迎访问</h1>
+
+  <script>
+    const randomSeed = `${Date.now()}-${Math.random()}`;
+    const imageUrl = `https://picsum.photos/seed/${encodeURIComponent(randomSeed)}/1920/1080`;
+    document.body.style.backgroundImage = `url("${imageUrl}")`;
+  </script>
+</body>
+</html>
