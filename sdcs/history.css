@@ -1,0 +1,48 @@
+dialog {
+  width: min(680px, calc(100% - 32px));
+  max-width: 680px;
+  max-height: 86vh;
+}
+
+dialog h3 {
+  margin: 24px 0 4px;
+  color: #7f2b24;
+  font-size: 17px;
+}
+
+.history-list {
+  margin: 20px 0;
+  padding: 0;
+  border-top: 1px solid #b9aa86;
+  list-style: none;
+}
+
+.history-list li {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 16px;
+  padding: 13px 0;
+  border-bottom: 1px solid #c8bb9b;
+}
+
+.history-list b {
+  color: #8d2c24;
+  font-size: 13px;
+}
+
+.history-list span {
+  color: #514b40;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.source-note {
+  padding: 10px 13px;
+  background: #ded3b6;
+  font-size: 12px;
+}
+
+@media (max-width: 600px) {
+  dialog { padding: 30px 22px; }
+  .history-list li { grid-template-columns: 1fr; gap: 5px; }
+}

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff8e8">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23ef5542'/%3E%3Cpath d='M32 9l6.2 14.3 15.5 1.5-11.7 10.3 3.4 15.2L32 42.4l-13.4 7.9L22 35.1 10.3 24.8l15.5-1.5z' fill='%23ffd45c'/%3E%3C/svg%3E">
+  <title>小红星的四渡赤水之旅</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="cloud cloud-one"></div><div class="cloud cloud-two"></div>
+  <main class="app">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="返回四渡赤水故事首页"><span class="brand-star">★</span><span><b>小红星历史故事</b><small>跟着地图去旅行</small></span></a>
+      <div class="journey"><span>今天认识</span><strong>四渡赤水</strong></div>
+      <button class="round-btn" id="aboutBtn" type="button"><span>?</span> 给大人看</button>
+    </header>
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="hello">👋 小朋友，你好！</span>
+        <h1>跟着小红星，<br><em>四次</em>渡过赤水河</h1>
+        <p>这是一个关于<strong>勇气、智慧和灵活转弯</strong>的故事。1935年，红军叔叔们在大山里边走边想办法，最后走出了包围圈。</p>
+        <button class="start-btn" id="startBtn" type="button">出发，听故事 <span>→</span></button>
+      </div>
+      <div class="hero-card" aria-label="四渡赤水知识卡片">
+        <div class="sun">☀</div><div class="mountains"><i></i><i></i><i></i></div><div class="river-ribbon">赤水河</div>
+        <div class="kid-star">★<span>准备好了吗？</span></div><div class="fact-bubble"><b>四渡</b><span>不是同一地点来回走<br>而是四次巧妙转向</span></div>
+      </div>
+    </section>
+    <section class="story-zone" id="storyZone">
+      <div class="section-heading"><span class="kicker">故事地图</span><h2>小红星闯过了哪四关？</h2><p>点一点下面的圆圈，看看每一次为什么要过河。</p></div>
+      <div class="learning-board">
+        <div class="map-card">
+          <div class="map-topline"><span>🗺️ 川、黔、滇交界示意图</span><span class="map-tip">路线是帮助理解的示意图</span></div>
+          <svg id="map" viewBox="0 0 760 500" role="img" aria-label="四渡赤水儿童示意地图">
+            <defs><filter id="softShadow"><feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#704e32" flood-opacity=".18"/></filter><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#ef5542"/></marker></defs>
+            <rect width="760" height="500" rx="24" fill="#f8e6b8"/><g class="hills" aria-hidden="true"></g>
+            <path class="big-river" d="M305-10 C255 60 335 102 285 162 C242 214 320 255 270 318 C230 368 292 414 245 510"/><path class="small-river" d="M276 314 C375 298 426 342 534 314 C604 296 650 320 720 342"/>
+            <text class="water-label" x="253" y="248" transform="rotate(-83 253 248)">赤水河</text><text class="water-label small" x="490" y="324">乌江</text>
+            <g class="province-names"><text x="90" y="90">四川</text><text x="485" y="215">贵州</text><text x="90" y="430">云南</text></g>
+            <g id="routeLayer"></g><g id="placeLayer"></g><g id="crossLayer"></g><g id="starLayer"></g>
+          </svg>
+          <div class="map-key"><span><i class="key-route"></i>红军行进路线</span><span><i class="key-water"></i>河流</span><span><i class="key-stop"></i>渡河地点</span></div>
+        </div>
+        <article class="story-card" aria-live="polite">
+          <div class="chapter-row"><span id="stageBadge">先认识一下</span><span id="stageDate">1935年1月—3月</span></div><div class="story-emoji" id="stageEmoji">⭐</div>
+          <h3 id="stageTitle">为什么要四次过河？</h3><p class="plain-story" id="stageStory">前面有拦路的军队，后面有追赶的军队。红军没有硬碰硬，而是一边走、一边观察，哪里有空隙就往哪里走。</p>
+          <div class="think-box"><span>💡 小脑袋想一想</span><p id="stageLesson">像走迷宫一样，遇到死路就换方向。灵活思考，也是一种勇敢！</p></div>
+          <div class="word-card"><span>今天认识的词</span><strong id="stageWord">灵活</strong><p id="stageWordExplain">根据情况及时改变办法。</p></div>
+          <button class="next-btn" id="nextBtn" type="button">开始第一渡 <span>→</span></button>
+        </article>
+      </div>
+      <nav class="chapter-nav" id="chapterNav" aria-label="故事章节"></nav>
+    </section>
+    <section class="recap"><div class="recap-title"><span>🏅</span><div><small>完成故事后</small><h2>你会记住这三件事</h2></div></div><div class="recap-grid"><article><b>4</b><span>四次渡过赤水河</span><p>每一次都有不同的目的。</p></article><article><b>👀</b><span>认真观察</span><p>先看清情况，再决定往哪里走。</p></article><article><b>💡</b><span>灵活想办法</span><p>路不通时，换个方向也能成功。</p></article></div></section>
+    <section class="quiz" id="quiz"><div><span class="kicker">小小挑战</span><h2>四渡赤水告诉我们什么？</h2><p>选择你觉得最合适的答案。</p></div><div class="answers"><button type="button" data-correct="false">只要一直向前走</button><button type="button" data-correct="true">观察变化，灵活想办法</button><button type="button" data-correct="false">遇到困难就不行动</button></div><p class="quiz-result" id="quizResult" aria-live="polite"></p></section>
+    <footer><span>⭐ 小红星历史故事</span><p>铭记历史 · 珍爱和平 · 勇敢成长</p><button id="backTop" type="button">回到顶部 ↑</button></footer>
+  </main>
+  <dialog id="aboutDialog"><button class="dialog-close" aria-label="关闭">×</button><span class="kicker">给家长和老师</span><h2>讲给孩子听的四渡赤水</h2><p>1935年1月至3月，中央红军在川、黔、滇交界地区四次渡过赤水河，通过不断改变行军方向，调动和迷惑围堵力量，争取到了行动主动权。</p><ol><li><b>一渡：</b>1月29日，从土城、元厚一带向西渡河，转向川南。</li><li><b>二渡：</b>2月18日至21日，从太平渡、二郎滩一带向东渡河，回师黔北。</li><li><b>三渡：</b>3月16日至17日，从茅台及附近向西渡河，调动对方。</li><li><b>四渡：</b>3月21日至22日，再次向东渡河，随后南渡乌江。</li></ol><p class="dialog-note">本页采用低龄化语言，只帮助理解“观察、判断、灵活行动”的故事主线。地图为示意图，不具备测绘精度。</p></dialog>
+  <script src="app.js"></script>
+</body>
+</html>
