@@ -77,7 +77,7 @@
         <ul id="files"></ul>
       </section>
       <section class="panel" aria-label="预览区">
-        <div class="preview-head"><div class="preview-title"><div id="title">选择一个文件</div><div id="meta">支持网页、图片、PDF、音视频和文本</div></div><a id="open" class="button" hidden target="_blank" rel="noopener">新窗口打开</a></div>
+        <div class="preview-head"><div class="preview-title"><div id="title">选择一个文件</div><div id="meta">支持网页、图片、PDF、音视频和文本</div></div><div class="actions"><button id="download" type="button" hidden>下载</button><a id="open" class="button" hidden target="_blank" rel="noopener">新窗口打开</a></div></div>
         <div id="viewer"><div class="empty">请从左侧选择要预览的文件</div></div>
       </section>
     </main>
@@ -86,7 +86,7 @@
     const REPO = 'meditlabs/meditlabs.github.io';
     const DIRECTORY = 'code';
     const API = `https://api.github.com/repos/${REPO}/contents/${DIRECTORY}`;
-    const els = Object.fromEntries(['files','count','search','refresh','viewer','title','meta','open'].map(id => [id, document.getElementById(id)]));
+    const els = Object.fromEntries(['files','count','search','refresh','viewer','title','meta','open','download'].map(id => [id, document.getElementById(id)]));
     const textExt = new Set(['txt','md','markdown','csv','tsv','json','xml','yaml','yml','js','mjs','cjs','ts','tsx','jsx','css','scss','less','py','java','c','h','cpp','hpp','cs','go','rs','rb','php','sh','bat','ps1','sql','ini','toml','log']);
     const imageExt = new Set(['png','jpg','jpeg','gif','webp','svg','bmp','ico','avif']);
     const videoExt = new Set(['mp4','webm','ogv','mov']);
@@ -133,7 +133,9 @@
     async function preview(file) {
       const ext = extOf(file.name); const url = file.download_url || file.html_url;
       els.title.textContent = file.name; els.meta.textContent = file.type === 'dir' ? '文件夹' : `${ext.toUpperCase() || 'FILE'} · ${formatSize(file.size)}`;
-      els.open.hidden = false; els.open.href = file.html_url || url; els.viewer.replaceChildren();
+      els.open.hidden = false; els.open.href = file.html_url || url; els.download.hidden = file.type === 'dir';
+      els.download.onclick = file.type === 'dir' ? null : () => downloadFile(file);
+      els.viewer.replaceChildren();
       if (file.type === 'dir') {
         const box = document.createElement('div'); box.className = 'empty'; box.textContent = '请使用“新窗口打开”浏览此文件夹。'; els.viewer.append(box);
       } else if (ext === 'html' || ext === 'htm' || ext === 'pdf') {
@@ -150,6 +152,23 @@
         catch (error) { pre.textContent = `无法加载文本：${error.message}`; }
       } else {
         const box = document.createElement('div'); box.className = 'empty'; box.innerHTML = '此格式无法在浏览器中直接预览。<br>请使用“新窗口打开”查看或下载。'; els.viewer.append(box);
+      }
+    }
+
+    async function downloadFile(file) {
+      const originalText = els.download.textContent;
+      els.download.disabled = true; els.download.textContent = '下载中…';
+      try {
+        const response = await fetch(file.download_url);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const blobUrl = URL.createObjectURL(await response.blob());
+        const link = document.createElement('a'); link.href = blobUrl; link.download = file.name;
+        document.body.append(link); link.click(); link.remove();
+        setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+      } catch (error) {
+        window.open(file.download_url || file.html_url, '_blank', 'noopener');
+      } finally {
+        els.download.disabled = false; els.download.textContent = originalText;
       }
     }
 
